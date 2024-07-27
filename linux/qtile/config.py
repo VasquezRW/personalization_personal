@@ -24,6 +24,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+
 import os
 import re
 import socket
@@ -31,7 +32,7 @@ import subprocess
 from typing import List  # noqa: F401
 from libqtile import layout, bar, widget, hook, qtile
 from libqtile.config import Click, Drag, Group, Key, Match, Screen, Rule
-from libqtile.command import lazy
+from libqtile.lazy import lazy
 from libqtile.widget import Spacer
 #import arcobattery
 
@@ -219,6 +220,29 @@ for i in groups:
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name) , lazy.group[i.name].toscreen()),
     ])
 
+
+def init_layout_theme():
+    return {"margin":5,
+            "border_width":2,
+            "border_focus": "#5e81ac",
+            "border_normal": "#4c566a"
+            }
+
+layout_theme = init_layout_theme()
+
+
+layouts = [
+    #layout.MonadTall(margin=8, border_width=2, border_focus="#5e81ac", border_normal="#4c566a"),
+    layout.MonadTall(**layout_theme),
+    #layout.MonadWide(margin=8, border_width=2, border_focus="#5e81ac", border_normal="#4c566a"),
+    layout.MonadWide(**layout_theme),
+    layout.Matrix(**layout_theme),
+    layout.Bsp(**layout_theme),
+    layout.Floating(**layout_theme),
+    layout.RatioTile(**layout_theme),
+    layout.Max(**layout_theme)
+]
+
 # COLORS FOR THE BAR
 #Theme name : ArcoLinux Default
 def init_colors():
@@ -271,7 +295,7 @@ def init_widgets_list():
     prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
     widgets_list = [
                widget.GroupBox(
-                        fontsize = 11,
+                        fontsize = 15,
                         margin_y = 3,
                         margin_x = 4,
                         padding_y = 2,
@@ -375,9 +399,8 @@ def init_widgets_screen1():
 
 def init_widgets_screen2():
     widgets_screen2 = init_widgets_list()
-    del widgets_screen2[13:15]
+    del widgets_screen2[14:15]
     return widgets_screen2
-
 widgets_screen1 = init_widgets_screen1()
 widgets_screen2 = init_widgets_screen2()
 
