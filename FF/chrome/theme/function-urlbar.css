@@ -1,0 +1,103 @@
+/*----------------------------------------------------------------
+- alternate styles for the URL Bar
+- user preference toggles for search suggestions, centered text, hiding buttons
+----------------------------------------------------------------*/
+
+@media (-moz-bool-pref: "ultima.urlbar.suggestions") {
+
+  #urlbar .search-one-offs:not([hidden]) {
+    display:none !important;
+  }
+
+}
+@media (-moz-bool-pref: "ultima.urlbar.centered") {
+
+  #urlbar .urlbar-input-box {
+    text-align: center;
+  }  
+  #urlbar .urlbar-input {
+    text-overflow: ellipsis !important;
+    overflow: hidden;
+    white-space: nowrap; 
+  }
+
+}
+
+@media (-moz-bool-pref: "ultima.urlbar.hidebuttons") {
+
+  #urlbar #identity-box,
+  #urlbar #page-action-buttons,
+  #urlbar #tracking-protection-icon-container {
+    opacity: 0 !important;
+  }
+  #urlbar:hover #identity-box,
+  #urlbar:hover #page-action-buttons,
+  #urlbar:hover #tracking-protection-icon-container {
+    opacity: 1 !important;
+    transition: opacity 100ms ease !important;
+  }
+  
+}
+
+
+#nav-bar {
+  display: flex;
+  justify-content: center;
+}
+
+#urlbar-container {
+  flex: 1;
+  max-width: 1000px;
+  min-width: 200px;
+  margin: auto !important;
+}
+
+#main-window #urlbar {
+  z-index: 9999 !important;
+  width: 100% !important;
+  margin-top: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  transition: width 0.3s ease, left 0.3s ease, margin-top 0.3s ease, margin-left 0.3s ease, margin-right 0.3s ease;
+}
+
+#main-window #urlbar[breakout][breakout-extend] {
+  opacity: 0.97 !important;
+  width: 100% !important;
+  left: 0;
+  right: 0;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-top: 30vh !important;
+  transition: width 0.3s ease, left 0.3s ease, margin-top 0.3s ease, margin-left 0.3s ease, margin-right 0.3s ease;
+}
+
+#urlbar-background,
+#urlbar-input-container {
+  --toolbarbutton-border-radius: calc(var(--urlbar-min-height) / 2);
+}
+
+#urlbar-input-container {
+  --urlbar-icon-border-radius: calc(var(--toolbarbutton-border-radius) - 1px);
+}
+
+#urlbar:not([focused]) #urlbar-input {
+  text-align: center !important;
+}
+
+#urlbar:not([breakout][breakout-extend]) #urlbar-input {
+  text-align: center !important;
+}
+
+/* Auto hide icons on the Nav Bar */
+#nav-bar > #nav-bar-customization-target *:not(#urlbar-container):not(#urlbar-container *),
+#PanelUI-button {
+    opacity: 0 !important;
+    transition: opacity 0.7s ease !important;
+}
+
+#nav-bar:hover > #nav-bar-customization-target *:not(#urlbar-container):not(#urlbar-container *),
+#nav-bar:hover > #PanelUI-button  {
+    opacity: 1 !important;
+    transition: opacity 0.3s ease !important;
+}
